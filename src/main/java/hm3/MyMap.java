@@ -252,12 +252,10 @@ public class MyMap<K, V> implements Map {
     public Set keySet() {
         Set<K> mySet = new HashSet<>();
         for (MyEntry<K, V> kvMyEntry : table) {
-            do {
-                if (kvMyEntry != null) {
+            while (kvMyEntry != null) {
                     mySet.add(kvMyEntry.getKey());
                     kvMyEntry = kvMyEntry.next;
-                }
-            } while (kvMyEntry != null);
+            }
         }
         return mySet;
     }
