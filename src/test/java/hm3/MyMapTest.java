@@ -16,6 +16,8 @@ public class MyMapTest {
         myMap.add("1","1");
         map.put("1","1");
         assertEquals(map.get("1"), myMap.get("1"));
+        myMap.add(null, null);
+        assertEquals(null, myMap.get(null));
 
     }
 
@@ -24,50 +26,72 @@ public class MyMapTest {
         myMap.add("1","1");
         myMap.remove("1");
         assertEquals(0, myMap.count);
+        assertEquals(null, myMap.remove(2));
+        myMap.put(null,"2");
+        assertEquals("2", myMap.remove(null));
+
     }
 
     @Test
     public void add() {
         myMap.add("1","1");
         assertEquals(1, myMap.count);
+        myMap.add(null, "2");
+        assertEquals("2", myMap.get(null));
     }
 
-    @Test
-    public void update() {
-        myMap.add("1","1");
-        myMap.update( "1", "2");
-        assertEquals("2", myMap.get("1"));
-    }
 
     @Test
     public void checking() {
         myMap.add("1","1");
-        assertEquals("1", "1");
+        assertTrue(myMap.containsKey("1"));
+        myMap.add(null,"2");
+        assertTrue(myMap.containsKey(null));
+
+
     }
 
     @Test
     public void getCount() {
-        myMap.add("1","1");
-        assertEquals(1, myMap.count);
-        myMap.remove("1");
-        assertEquals(0, myMap.count);
+        for (int i = 0; i < 50; i++) {
+            myMap.add(i,"1");
+        }
+
+        assertEquals(50, myMap.count);
+        myMap.remove(1);
+        assertEquals(49, myMap.getCount());
+        myMap.add(null, "3");
+        myMap.remove(null);
+        assertEquals(49, myMap.getCount());
+
     }
 
     @Test
     public void size() {
         myMap.add("1","1");
+        myMap.add("2","2");
+        myMap.add("3","3");
+        myMap.add("4","4");
+
         map.put("1","1");
-        assertEquals(map.keySet(), myMap.keySet());
+        map.put("2","2");
+        map.put("3","3");
+        map.put("4","4");
+        assertEquals(map.size(), myMap.count);
     }
 
     @Test
     public void isEmpty() {
         myMap.add("1","1");
-        myMap.remove("1");
+        myMap.add("2","2");
+        myMap.add("3","3");
+        myMap.removeMy("2");
 
         map.put("1","1");
-        map.clear();
-        assertEquals(map.keySet(), myMap.keySet());
+        map.put("2","2");
+        map.put("3","3");
+        map.remove("2","2");
+        assertEquals(map.size(), myMap.count);
     }
 
     @Test
@@ -83,21 +107,31 @@ public class MyMapTest {
         myMap.add("Kia", "Korea");
 
         map.put("Kia", "Korea");
-        assertEquals(map.keySet(), myMap.keySet());
+        assertEquals(map.containsValue("Korea"), myMap.containsValue("Korea"));
     }
 
     @Test
     public void get() {
         myMap.add("1","1");
+        myMap.add("2","2");
+        myMap.add("3","3");
+
         map.put("1","1");
-        assertEquals(map.get("1"), myMap.getMy("1"));
+        map.put("2","2");
+        map.put("3","3");
+        assertEquals(map.get("2"), myMap.getMy("2"));
     }
 
     @Test
     public void put() {
         myMap.add("1","1");
+        myMap.add("2","2");
+        myMap.add("3","3");
+
         map.put("1","1");
-        assertEquals(map.get("1"), myMap.getMy("1"));
+        map.put("2","2");
+        map.put("3","3");
+        assertEquals(map.size(), myMap.count);
     }
 
     @Test
@@ -105,9 +139,9 @@ public class MyMapTest {
         myMap.add("1","1");
         map.put("1","1");
 
-        myMap.remove("1");
-        map.clear();
-        assertEquals(map.keySet(), myMap.keySet());
+        myMap.removeMy("1");
+        map.remove("1");
+        assertEquals(map.size(), myMap.count);
     }
 
     @Test
